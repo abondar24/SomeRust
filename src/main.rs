@@ -7,7 +7,10 @@ fn main() {
     shadow();
     rebind();
     tuples();
-assignments();
+    assignments();
+    unsigned();
+    float();
+    range()
 }
 
 fn base_var() {
@@ -89,4 +92,40 @@ fn assignments(){
     assert_eq!([x,y],[5,7]);
 
     println!("x is {}, y is {}",x,y)
+}
+
+fn unsigned(){
+    let v: u8 = 24_u8;
+    println!("{} is unsigned 8 int", v);
+
+    println!("Max {}", u8::MAX)
+}
+
+fn float(){
+    println!("floats");
+    let x: f32 = 0.12;
+
+    println!("F32 x is {}", x);
+
+    println!("F64 x is {}", x as f64)
+}
+
+fn range(){
+    println!("range");
+
+    let mut sum = 0;
+
+    //in range last one is excluded by default
+    for i in -5..5 {
+        sum +=i;
+        println!("sum at iteration {} is {}",i,sum)
+    }
+
+    println!("Final sum {}", sum);
+
+    for i in 'a'..='d'{
+        println!("{}:{}", i, i as u8)
+    }
+
+
 }
