@@ -14,6 +14,7 @@ fn main() {
     char();
     bool();
     unit();
+    expr();
 }
 
 fn base_var() {
@@ -156,4 +157,21 @@ fn unit(){
     let _v: ()=();
 
     println!("Size of unit {}", size_of_val(&_v))
+}
+
+fn expr(){
+    println!("expressions");
+
+    let x= 5u32;
+
+    let y: u32 = {
+        let x_2 = x * x;
+
+        //statement to be returned
+        x_2*x_2
+    };
+
+    println!("{:?}", y)
+
+
 }
