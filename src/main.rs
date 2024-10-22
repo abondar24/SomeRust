@@ -15,6 +15,7 @@ fn main() {
     bool();
     unit();
     expr();
+    func(false);
 }
 
 fn base_var() {
@@ -36,7 +37,7 @@ fn mutable_var() {
 }
 
 
-fn scope(){
+fn scope() {
     println!("scope");
 
     let x = 1;
@@ -48,64 +49,63 @@ fn scope(){
 }
 
 
-fn shadow(){
+fn shadow() {
     println!("shadowing");
 
     let x = 5;
 
     {
         let x = 7;
-        assert_eq!(x,7)
+        assert_eq!(x, 7)
     }
 
-      println!("{}",x)
+    println!("{}", x)
 }
 
-fn rebind(){
+fn rebind() {
     println!("rebind");
 
-    let mut x: i32  =1;
-    x+=1;
-    println!("{}",x);
+    let mut x: i32 = 1;
+    x += 1;
+    println!("{}", x);
 
     let x = 3;
-    println!("{}",x);
+    println!("{}", x);
 
-    let x= "Now it is a string";
+    let x = "Now it is a string";
     println!("{}", x)
-
 }
 
-fn tuples(){
+fn tuples() {
     println!("tuples destructuring");
 
-    let (mut x,y) = (1,2);
-    x +=2;
+    let (mut x, y) = (1, 2);
+    x += 2;
 
-    println!("x is {}, y is {}",x,y)
+    println!("x is {}, y is {}", x, y)
 }
 
-fn assignments(){
+fn assignments() {
     println!("assignments destructuring");
 
-    let(x,y);
+    let (x, y);
 
-    (x,..) = (5,4);
-    [..,y] = [1,7];
+    (x, ..) = (5, 4);
+    [.., y] = [1, 7];
 
-    assert_eq!([x,y],[5,7]);
+    assert_eq!([x, y], [5, 7]);
 
-    println!("x is {}, y is {}",x,y)
+    println!("x is {}, y is {}", x, y)
 }
 
-fn unsigned(){
+fn unsigned() {
     let v: u8 = 24_u8;
     println!("{} is unsigned 8 int", v);
 
     println!("Max {}", u8::MAX)
 }
 
-fn float(){
+fn float() {
     println!("floats");
     let x: f32 = 0.12;
 
@@ -114,27 +114,25 @@ fn float(){
     println!("F64 x is {}", x as f64)
 }
 
-fn range(){
+fn range() {
     println!("range");
 
     let mut sum = 0;
 
     //in range last one is excluded by default
     for i in -5..5 {
-        sum +=i;
-        println!("sum at iteration {} is {}",i,sum)
+        sum += i;
+        println!("sum at iteration {} is {}", i, sum)
     }
 
     println!("Final sum {}", sum);
 
-    for i in 'a'..='d'{
+    for i in 'a'..='d' {
         println!("{}:{}", i, i as u8)
     }
-
-
 }
 
-fn char(){
+fn char() {
     println!("characters");
 
     let c1 = 'a';
@@ -142,36 +140,61 @@ fn char(){
     println!("Size of char 'a' {} bytes ", size_of_val(&c1))
 }
 
-fn bool(){
+fn bool() {
     let t: bool = true;
 
     if t {
         println!("Bool")
     }
-
 }
 
-fn unit(){
+fn unit() {
     println!("unit");
 
-    let _v: ()=();
+    let _v: () = ();
 
     println!("Size of unit {}", size_of_val(&_v))
 }
 
-fn expr(){
+fn expr() {
     println!("expressions");
 
-    let x= 5u32;
+    let x = 5u32;
 
     let y: u32 = {
         let x_2 = x * x;
 
         //statement to be returned
-        x_2*x_2
+        x_2 * x_2
     };
 
     println!("{:?}", y)
+}
+
+// returns () by default
+fn func(isPanic: bool) {
+    println!("func");
+    let (x, y) = (1, 2);
+
+    let s = sum(x, y);
+    println!("{}", s);
+
+    if isPanic {
+        sum(-100,0);
+    }
+
+}
 
 
+fn sum(x: i32, y: i32) -> i32 {
+    if (x == -100 || y == -100){
+        error()
+    }
+
+    x + y
+}
+
+//diverget func - never returns a val
+fn error() ->!{
+    panic!()
 }
