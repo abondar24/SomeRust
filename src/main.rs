@@ -13,6 +13,7 @@ fn main() {
     range();
     char();
     bool();
+    unit();
 }
 
 fn base_var() {
@@ -147,4 +148,12 @@ fn bool(){
         println!("Bool")
     }
 
+}
+
+fn unit(){
+    println!("unit");
+
+    let _v: ()=();
+
+    println!("Size of unit {}", size_of_val(&_v))
 }
