@@ -10,7 +10,9 @@ fn main() {
     assignments();
     unsigned();
     float();
-    range()
+    range();
+    char();
+    bool();
 }
 
 fn base_var() {
@@ -127,5 +129,22 @@ fn range(){
         println!("{}:{}", i, i as u8)
     }
 
+
+}
+
+fn char(){
+    println!("characters");
+
+    let c1 = 'a';
+
+    println!("Size of char 'a' {} bytes ", size_of_val(&c1))
+}
+
+fn bool(){
+    let t: bool = true;
+
+    if t {
+        println!("Bool")
+    }
 
 }
