@@ -1,6 +1,7 @@
 fn main() {
     println!("Let's start the show");
 
+    //todo add arg reading and calling functions by args
     base_var();
     mutable_var();
     scope();
@@ -16,6 +17,7 @@ fn main() {
     unit();
     expr();
     func(false);
+    ownership();
 }
 
 fn base_var() {
@@ -180,14 +182,13 @@ fn func(isPanic: bool) {
     println!("{}", s);
 
     if isPanic {
-        sum(-100,0);
+        sum(-100, 0);
     }
-
 }
 
 
 fn sum(x: i32, y: i32) -> i32 {
-    if (x == -100 || y == -100){
+    if (x == -100 || y == -100) {
         error()
     }
 
@@ -195,6 +196,23 @@ fn sum(x: i32, y: i32) -> i32 {
 }
 
 //diverget func - never returns a val
-fn error() ->!{
+fn error() -> ! {
     panic!()
 }
+
+fn ownership() {
+    println!("Ownership");
+
+    let x: String = String::from("hi");
+    let y: String = x.clone();
+
+    println!("{},{}", x, y);
+
+    let tup: (String,String) = (String::from("hi"), String::from("man"));
+
+    let _t = tup.0;
+
+    println!("remaining tup: {}",tup.1)
+
+}
+
