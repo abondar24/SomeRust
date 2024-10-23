@@ -18,6 +18,7 @@ fn main() {
     expr();
     func(false);
     ownership();
+    borrowing()
 }
 
 fn base_var() {
@@ -188,7 +189,7 @@ fn func(isPanic: bool) {
 
 
 fn sum(x: i32, y: i32) -> i32 {
-    if (x == -100 || y == -100) {
+    if x == -100 || y == -100 {
         error()
     }
 
@@ -208,11 +209,33 @@ fn ownership() {
 
     println!("{},{}", x, y);
 
-    let tup: (String,String) = (String::from("hi"), String::from("man"));
+    let tup: (String, String) = (String::from("hi"), String::from("man"));
 
     let _t = tup.0;
 
-    println!("remaining tup: {}",tup.1)
-
+    println!("remaining tup: {}", tup.1)
 }
 
+fn borrowing() {
+    println!("borrowing");
+
+    let mut s = String::from("bh");
+
+    let addr: &String = &s;
+    println!("Address is {:p}", addr);
+
+    borrow_string(&mut s)
+}
+
+
+fn borrow_string(st: &mut String) {
+    st.push_str("fdgdfgfd");
+    println!("{}", st);
+
+    //the code doesn't compile as we can't have two mutable references
+    // let st1 = st;
+    // let st2 = st;
+    //
+    // println!("{},{}", st1,st2)
+
+}
