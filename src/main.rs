@@ -20,7 +20,8 @@ fn main() {
     ownership();
     borrowing();
     strings();
-    arrays()
+    arrays();
+    structs()
 }
 
 fn base_var() {
@@ -84,7 +85,7 @@ fn rebind() {
 fn tuples() {
     println!("tuples");
 
-    let tup: (u8,u16) = (0u8,1u16);
+    let tup: (u8, u16) = (0u8, 1u16);
     println!("{:?}", tup);
 
     let (mut x, y) = (1, 2);
@@ -245,9 +246,9 @@ fn borrow_string(st: &mut String) {
 
 }
 
-fn strings(){
+fn strings() {
     println!("strings");
-    let str  = String::from("strings");
+    let str = String::from("strings");
 
     let start = &str[0..3];
     println!("{}", start);
@@ -258,7 +259,7 @@ fn strings(){
 
     println!("{}", str1);
 
-    let str2 = str.replace("ings","gggg");
+    let str2 = str.replace("ings", "gggg");
     println!("{}", str2);
 
     let mut str3 = start.to_string();
@@ -269,14 +270,40 @@ fn strings(){
     println!("{}", str3)
 }
 
-fn arrays(){
+fn arrays() {
     println!("arrays");
 
-    let arr: [i32;5]= [1,2,3,4,5];
+    let arr: [i32; 5] = [1, 2, 3, 4, 5];
     println!("{}", arr.len());
 
-    let arr1: [_;3] = ['a','b','c'];
+    let arr1: [_; 3] = ['a', 'b', 'c'];
     println!("{:?}", arr1)
+}
+
+fn structs() {
+    println!("stucts");
+
+    let user = User {
+        name: String::from("test"),
+        pass: String::from("tes"),
+    };
+    println!("{:?}", user.name);
+    println!("{:?}", user);
+
+    let point = Point(34,34,45);
+    println!("{}", point.2);
+
+    let Point(x,_,_) = point;
+    println!("Destructured point to {}",x)
+
+}
 
 
+//tuple struct
+struct Point(i32,i32,i32);
+
+#[derive(Debug)]
+struct User {
+    name: String,
+    pass: String,
 }
