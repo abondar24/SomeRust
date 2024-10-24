@@ -18,7 +18,8 @@ fn main() {
     expr();
     func(false);
     ownership();
-    borrowing()
+    borrowing();
+    strings()
 }
 
 fn base_var() {
@@ -238,4 +239,28 @@ fn borrow_string(st: &mut String) {
     //
     // println!("{},{}", st1,st2)
 
+}
+
+fn strings(){
+    println!("strings");
+    let str  = String::from("strings");
+
+    let start = &str[0..3];
+    println!("{}", start);
+
+    let mut str1: String = String::from("");
+    str1.push_str("test");
+    str1.push('!');
+
+    println!("{}", str1);
+
+    let str2 = str.replace("ings","gggg");
+    println!("{}", str2);
+
+    let mut str3 = start.to_string();
+    str3.push_str("ings are nice");
+    println!("{}", str3);
+
+    str3.push_str("\x73\x74\\x3F");
+    println!("{}", str3)
 }
