@@ -82,7 +82,10 @@ fn rebind() {
 }
 
 fn tuples() {
-    println!("tuples destructuring");
+    println!("tuples");
+
+    let tup: (u8,u16) = (0u8,1u16);
+    println!("{:?}", tup);
 
     let (mut x, y) = (1, 2);
     x += 2;
