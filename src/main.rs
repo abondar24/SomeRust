@@ -19,7 +19,8 @@ fn main() {
     func(false);
     ownership();
     borrowing();
-    strings()
+    strings();
+    arrays()
 }
 
 fn base_var() {
@@ -263,4 +264,16 @@ fn strings(){
 
     str3.push_str("\x73\x74\\x3F");
     println!("{}", str3)
+}
+
+fn arrays(){
+    println!("arrays");
+
+    let arr: [i32;5]= [1,2,3,4,5];
+    println!("{}", arr.len());
+
+    let arr1: [_;3] = ['a','b','c'];
+    println!("{:?}", arr1)
+
+
 }
