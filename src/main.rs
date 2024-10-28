@@ -25,7 +25,8 @@ fn main() {
     strings();
     arrays();
     structs();
-    enums()
+    enums();
+    lp()
 }
 
 fn base_var() {
@@ -372,4 +373,18 @@ enum Message {
         y: i32
     },
     Write(String)
+}
+
+fn lp(){
+    let mut count = 0;
+    loop {
+        println!("{}", count);
+        count+=1;
+
+        if count == 7 {
+            println!("loop stop");
+
+            break;
+        }
+    }
 }
