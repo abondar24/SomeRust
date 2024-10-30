@@ -473,12 +473,13 @@ fn traits() {
     println!("Traits");
 
     let st = greet_factory("student");
-    let st_greet = st.greet( String::from("Alex"));
-    println!("{}", st_greet);
-
     let tch = greet_factory("teacher");
-    let tc_greet = tch.greet( String::from("Alexander"));
-    println!("{}", tc_greet)
+
+    let greets: [Box<dyn Greet>; 2] = [st,tch];
+    for gr in greets {
+        let g= gr.greet(String::from("Alex"));
+        println!("{}", g);
+    }
 }
 
 //returns a trait object
