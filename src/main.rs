@@ -1,5 +1,5 @@
-use std::fmt::Display;
 use crate::Message::{Quit, Start, Write};
+use std::fmt::Display;
 
 fn main() {
     println!("Let's start the show");
@@ -29,7 +29,8 @@ fn main() {
     enums();
     lp();
     pattern();
-    generics()
+    generics();
+    traits()
 }
 
 fn base_var() {
@@ -327,10 +328,10 @@ impl User {
         enc
     }
 
-    pub fn new_user() -> Self{
+    pub fn new_user() -> Self {
         Self {
             name: String::from("new"),
-            pass: String::from("pass")
+            pass: String::from("pass"),
         }
     }
 }
@@ -412,6 +413,7 @@ fn lp() {
 }
 
 fn pattern() {
+    println!("patterns");
     let dir: Direction = Direction::South;
 
     match dir {
@@ -446,8 +448,10 @@ enum Direction {
     South,
 }
 
-fn generics(){
-    let _sg = SGen{
+fn generics() {
+    println!("generics");
+
+    let _sg = SGen {
         val: "SSS"
     };
     generic(100);
@@ -457,10 +461,53 @@ fn generics(){
 
 struct A;
 struct S(A);
-struct SGen<T: Display>{
-    val: T
+struct SGen<T: Display> {
+    val: T,
 }
 
-fn generic<T: Display>( a:T){
-   println!("{}", a)
+fn generic<T: Display>(a: T) {
+    println!("{}", a)
 }
+
+fn traits() {
+    println!("Traits");
+
+    let st = greet_factory("student");
+    let st_greet = st.greet( String::from("Alex"));
+    println!("{}", st_greet);
+
+    let tch = greet_factory("teacher");
+    let tc_greet = tch.greet( String::from("Alexander"));
+    println!("{}", tc_greet)
+}
+
+//returns a trait object
+fn greet_factory(obj_type: &str) -> Box<dyn Greet>{
+    match obj_type {
+        "student" => Box::new(Student{}),
+        "teacher" => Box::new(Teacher{}),
+        _=> panic!()
+    }
+}
+
+trait Greet {
+    fn greet(&self, person: String) -> String {
+        let mut gr = String::from("Greeting");
+        gr.push(' ');
+        gr.push_str(&*person);
+
+        gr
+    }
+}
+
+#[derive(Debug)]
+struct Student {}
+impl Greet for Student {
+    fn greet(&self, person: String) -> String {
+        person
+    }
+}
+
+
+struct Teacher {}
+impl Greet for Teacher {}
