@@ -296,16 +296,21 @@ fn structs() {
     println!("{:?}", user.name);
     println!("{:?}", user);
 
-    let point = Point(34,34,45);
+    let point = Point(34, 34, 45);
     println!("{}", point.2);
 
-    let Point(x,_,_) = point;
-    println!("Destructured point to {}",x)
+    let Point(x, _, _) = point;
+    println!("Destructured point to {}", x);
 
+    let enc = user.pass_enc();
+    println!("Encoded pass {}", enc);
+
+    let new = User::new_user();
+    println!("{:?}", new)
 }
 
 //tuple struct
-struct Point(i32,i32,i32);
+struct Point(i32, i32, i32);
 
 #[derive(Debug)]
 struct User {
@@ -313,7 +318,22 @@ struct User {
     pass: String,
 }
 
-fn enums(){
+impl User {
+    pub fn pass_enc(&self) -> String {
+        let mut enc = String::from("enc");
+        enc.push_str(&*self.pass);
+        enc
+    }
+
+    pub fn new_user() -> Self{
+        Self {
+            name: String::from("new"),
+            pass: String::from("pass")
+        }
+    }
+}
+
+fn enums() {
     println!("enums");
 
     println!("{:?}", Number::One);
@@ -321,18 +341,18 @@ fn enums(){
     println!("{:?}", Num::One);
 
     let msg_quit: Message = Quit(String::from("Reason"), String::from("Epic"));
-    let msg_start: Message = Start {x:0,y:32};
+    let msg_start: Message = Start { x: 0, y: 32 };
     let msg_write: Message = Write(String::from("Hiii"));
 
-    if let Start {x:a,y:b}= msg_start {
+    if let Start { x: a, y: b } = msg_start {
         println!("{}", a)
     }
 
-    if let Write(ref message) = msg_write{
+    if let Write(ref message) = msg_write {
         println!("{}", message);
     }
 
-    let msgs: [Message;3] = [
+    let msgs: [Message; 3] = [
         msg_quit,
         msg_start,
         msg_write
@@ -342,14 +362,13 @@ fn enums(){
         println!("{:?}", msg)
     }
 
-    let mut  nm: Option<i32> = Some(5);
-    nm = nm.map(|v| v+1);
+    let mut nm: Option<i32> = Some(5);
+    nm = nm.map(|v| v + 1);
 
     match nm {
-        Some(v)=> println!("{}", v),
+        Some(v) => println!("{}", v),
         None => println!("no val")
     }
-
 }
 
 
@@ -357,30 +376,30 @@ fn enums(){
 enum Number {
     Zero,
     One,
-    Two
+    Two,
 }
 
 #[derive(Debug)]
 enum Num {
     Zero = 0,
-    One =1
+    One = 1,
 }
 
 #[derive(Debug)]
 enum Message {
-    Quit(String,String),
-    Start{
+    Quit(String, String),
+    Start {
         x: i32,
-        y: i32
+        y: i32,
     },
-    Write(String)
+    Write(String),
 }
 
-fn lp(){
+fn lp() {
     let mut count = 0;
     loop {
         println!("{}", count);
-        count+=1;
+        count += 1;
 
         if count == 7 {
             println!("loop stop");
@@ -390,39 +409,37 @@ fn lp(){
     }
 }
 
-fn pattern(){
- let dir: Direction = Direction::South;
+fn pattern() {
+    let dir: Direction = Direction::South;
 
- match dir {
-     Direction::East => println!("East"),
-     Direction::South | Direction::North =>{
-         println!("Highway to hell")
-     },
-     _ => println!("West")
- }
+    match dir {
+        Direction::East => println!("East"),
+        Direction::South | Direction::North => {
+            println!("Highway to hell")
+        }
+        _ => println!("West")
+    }
 
-    let chars = ['a','b','C'];
+    let chars = ['a', 'b', 'C'];
 
     for c in chars {
         let is_big = matches!(c, 'A'..'Z');
-        println!("{} is Big: {}", c,is_big)
+        println!("{} is Big: {}", c, is_big)
     }
 
     for i in 1..10 {
         match i {
-            1=> println!("Start"),
-            2|3 => println!("Push"),
+            1 => println!("Start"),
+            2 | 3 => println!("Push"),
             4..6 => println!("Don't fall"),
-            _ => println!("{}",i)
+            _ => println!("{}", i)
         }
     }
-
-
 }
 
 enum Direction {
     East,
     West,
     North,
-    South
+    South,
 }
