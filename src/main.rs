@@ -1,5 +1,7 @@
 use crate::Message::{Quit, Start, Write};
+use std::collections::HashMap;
 use std::fmt::Display;
+use std::hash::Hash;
 
 fn main() {
     println!("Let's start the show");
@@ -31,7 +33,8 @@ fn main() {
     pattern();
     generics();
     traits();
-    vectors()
+    vectors();
+    hashmaps()
 }
 
 fn base_var() {
@@ -476,19 +479,19 @@ fn traits() {
     let st = greet_factory("student");
     let tch = greet_factory("teacher");
 
-    let greets: [Box<dyn Greet>; 2] = [st,tch];
+    let greets: [Box<dyn Greet>; 2] = [st, tch];
     for gr in greets {
-        let g= gr.greet(String::from("Alex"));
+        let g = gr.greet(String::from("Alex"));
         println!("{}", g);
     }
 }
 
 //returns a trait object
-fn greet_factory(obj_type: &str) -> Box<dyn Greet>{
+fn greet_factory(obj_type: &str) -> Box<dyn Greet> {
     match obj_type {
-        "student" => Box::new(Student{}),
-        "teacher" => Box::new(Teacher{}),
-        _=> panic!()
+        "student" => Box::new(Student {}),
+        "teacher" => Box::new(Teacher {}),
+        _ => panic!()
     }
 }
 
@@ -515,15 +518,15 @@ struct Teacher {}
 impl Greet for Teacher {}
 
 
-fn vectors(){
+fn vectors() {
     println!("vectors");
-    let arr: [u8;3] = [1,2,3];
+    let arr: [u8; 3] = [1, 2, 3];
 
     let vc: Vec<u8> = Vec::from(arr);
 
     println!("{:?}", vc);
 
-    let v1: Vec<u8> = vec![4,5,6];
+    let v1: Vec<u8> = vec![4, 5, 6];
     println!("{:?}", v1);
 
     let mut v2 = Vec::new();
@@ -532,13 +535,49 @@ fn vectors(){
         v2.push(*i);
     }
 
-    for i in &vc{
+    for i in &vc {
         v2.push(*i);
     }
 
     println!("{:?}", v2.pop());
     println!("{:?}", v2[4]);
 
-    let v3: Vec<u16> = [1;5].into_iter().collect();
+    let v3: Vec<u16> = [1; 5].into_iter().collect();
     println!("Vector from iterator: {:?}", v3)
+}
+
+fn hashmaps() {
+    println!("hashmaps");
+
+    let mut scores = HashMap::new();
+    scores.insert("a", 100);
+    scores.insert("b", 200);
+
+    println!("{:?}", scores);
+
+    let sa = scores.get("a");
+    println!("Value of a is {:?} or {}", sa, scores["a"]);
+
+
+    let employees: HashMap<Employee, String> = HashMap::from([
+        (Employee::new(1, "Armen"), String::from("test")),
+        (Employee::new(2, "Arsen"), String::from("test1"))
+    ]);
+
+    println!("{:?}", employees)
+}
+
+#[derive(Debug, Eq, Hash, PartialEq)]
+struct Employee {
+    id: i32,
+    name: String,
+}
+
+impl Employee {
+    fn new(id: i32, name: &str) -> Employee {
+        Employee {
+            id,
+            name: name.to_string(),
+        }
+    }
 }
