@@ -30,7 +30,8 @@ fn main() {
     lp();
     pattern();
     generics();
-    traits()
+    traits();
+    vectors()
 }
 
 fn base_var() {
@@ -512,3 +513,32 @@ impl Greet for Student {
 
 struct Teacher {}
 impl Greet for Teacher {}
+
+
+fn vectors(){
+    println!("vectors");
+    let arr: [u8;3] = [1,2,3];
+
+    let vc: Vec<u8> = Vec::from(arr);
+
+    println!("{:?}", vc);
+
+    let v1: Vec<u8> = vec![4,5,6];
+    println!("{:?}", v1);
+
+    let mut v2 = Vec::new();
+
+    for i in &v1 {
+        v2.push(*i);
+    }
+
+    for i in &vc{
+        v2.push(*i);
+    }
+
+    println!("{:?}", v2.pop());
+    println!("{:?}", v2[4]);
+
+    let v3: Vec<u16> = [1;5].into_iter().collect();
+    println!("Vector from iterator: {:?}", v3)
+}
