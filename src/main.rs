@@ -1,21 +1,25 @@
+mod base;
+mod types;
+
 use crate::Message::{Quit, Start, Write};
 use std::collections::HashMap;
 use std::fmt::Display;
 use std::hash::Hash;
+
 
 fn main() {
     println!("Let's start the show");
 
     //todo add arg reading and calling functions by args
     //todo move functions to mods
-    base_var();
-    mutable_var();
+    base::base_var();
+    base::mutable_var();
     scope();
     shadow();
     rebind();
     tuples();
     assignments();
-    unsigned();
+    types::unsigned::unsigned();
     float();
     range();
     char();
@@ -39,23 +43,6 @@ fn main() {
     res(false)
 }
 
-fn base_var() {
-    println!("basic var");
-
-    //base variable
-    let x: i32;
-    x = 1;
-    println!("{}", x);
-}
-
-fn mutable_var() {
-    println!("mutable vars");
-
-    //mutable var
-    let mut y: i32 = 2;
-    y += 2;
-    println!("{}", y);
-}
 
 
 fn scope() {
@@ -122,12 +109,7 @@ fn assignments() {
     println!("x is {}, y is {}", x, y)
 }
 
-fn unsigned() {
-    let v: u8 = 24_u8;
-    println!("{} is unsigned 8 int", v);
 
-    println!("Max {}", u8::MAX)
-}
 
 fn float() {
     println!("floats");
@@ -196,14 +178,14 @@ fn expr() {
 }
 
 // returns () by default
-fn func(isPanic: bool) {
+fn func(is_panic: bool) {
     println!("func");
     let (x, y) = (1, 2);
 
     let s = sum(x, y);
     println!("{}", s);
 
-    if isPanic {
+    if is_panic {
         sum(-100, 0);
     }
 }
