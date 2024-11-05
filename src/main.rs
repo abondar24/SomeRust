@@ -35,7 +35,8 @@ fn main() {
     traits();
     vectors();
     hashmaps();
-    type_coerc()
+    type_coerc();
+    res(false)
 }
 
 fn base_var() {
@@ -584,39 +585,37 @@ impl Employee {
 }
 
 
-fn type_coerc(){
+fn type_coerc() {
     println!("type coercion");
 
     let dec: f32 = 97.123_f32;
 
     let int: u8 = dec as u8;
-    println!("Dec {} as int {}",dec,int);
+    println!("Dec {} as int {}", dec, int);
 
     let ch: char = int as char;
-    println!("Int {} as char {}",int,ch);
+    println!("Int {} as char {}", int, ch);
 
     overflow();
 
     let num: Numb = Numb::from(30);
-    println!("Numb from {:?}",num);
+    println!("Numb from {:?}", num);
 
     let nm: Numb = 64.into();
-    println!("Numb into {:?}",nm)
-
-
+    println!("Numb into {:?}", nm)
 }
 
 #[allow(overflowing_literals)]
-fn overflow(){
-    println!("U8 max {}",u8::MAX);
+fn overflow() {
+    println!("U8 max {}", u8::MAX);
 
     let over: u8 = 1023 as u8;
     println!("1023 in u8 with overflow {}", over)
 }
 
 #[derive(Debug)]
-struct Numb{
-    val: i32
+struct Numb {
+    val: i32,
 }
 
 impl From<i32> for Numb {
@@ -624,5 +623,46 @@ impl From<i32> for Numb {
         Self {
             val: value,
         }
+    }
+}
+
+fn res(is_panic: bool) {
+    println!("result handling");
+
+    let res = err_func("dfdf");
+    println!("{}", res.unwrap());
+
+    let err_res = err_func("");
+
+    if is_panic {
+        println!("{}", err_res.unwrap())
+    }
+
+    match hanlder("") {
+        Ok(_) => println!("No error"),
+        Err(e) => println!("{}",e)
+    }
+
+    match hanlder("test") {
+        Ok(val) => println!("{}",val),
+        Err(e) => println!("{}",e)
+    }
+}
+
+fn hanlder(arg: &str) -> Result<i32, String> {
+    let res = err_func(arg)?;
+    println!("{}", res);
+
+    Ok(res)
+}
+
+
+fn err_func(arg: &str) -> Result<i32, String> {
+    let arg_len = arg.len();
+
+    if arg_len > 0 {
+        Ok(arg_len as i32)
+    } else {
+        Err("Can't be empty".to_string())
     }
 }
