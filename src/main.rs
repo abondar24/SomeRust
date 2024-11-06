@@ -1,6 +1,7 @@
 mod base;
 mod types;
 
+use std::borrow;
 use crate::Message::{Quit, Start, Write};
 use std::collections::HashMap;
 use std::fmt::Display;
@@ -40,7 +41,8 @@ fn main() {
     vectors();
     hashmaps();
     type_coerc();
-    res(false)
+    res(false);
+    lifetime()
 }
 
 
@@ -227,7 +229,15 @@ fn borrowing() {
     let addr: &String = &s;
     println!("Address is {:p}", addr);
 
-    borrow_string(&mut s)
+    borrow_string(&mut s);
+
+    let borrow;
+    {
+         borrow = &s;
+        println!("Borrow {}",borrow)
+    }
+
+    println!("{}", borrow)
 }
 
 
@@ -646,5 +656,32 @@ fn err_func(arg: &str) -> Result<i32, String> {
         Ok(arg_len as i32)
     } else {
         Err("Can't be empty".to_string())
+    }
+}
+
+fn lifetime(){
+    println!("lifetime");
+
+    let a = 10;
+    let b = 20;
+
+    let rs = pass_x(&a, &b);
+    println!("{}", rs);
+
+    let cmp = compare(&a,&b);
+    println!("{}", cmp);
+
+}
+
+fn pass_x<'a, 'b>(x: &'a i32, _: &'b i32) -> & 'a i32{
+    x
+}
+
+
+fn compare<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
+    if x > y{
+        x
+    } else {
+        y
     }
 }
