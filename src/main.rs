@@ -43,7 +43,8 @@ fn main() {
     type_coerc();
     res(false);
     lifetime();
-    closure()
+    closure();
+    iterator()
 }
 
 
@@ -724,4 +725,25 @@ fn func_receiver<F: Fn()>(f: F){
 
 fn fn_param(){
     println!("Function passed as a param")
+}
+
+fn iterator(){
+    println!("iterator");
+
+    let v = vec![1,2,3];
+
+    //n ownership transfer
+    for x in v.iter(){
+        println!("{}",x)
+    }
+
+    //ownership is transferred
+    for x in v.into_iter() {
+        println!("{}", x)
+    }
+
+    let arr = [0;10];
+    for i in arr {
+        println!("{}",arr[i])
+    }
 }
