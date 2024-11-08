@@ -74,7 +74,6 @@ fn main() {
         println!("Please provide an argument! Use cargo run help to see the available commands.");
     }
 
-    //todo readme
 }
 
 fn init_arguments() -> HashMap<String, String> {
@@ -110,6 +109,7 @@ fn init_arguments() -> HashMap<String, String> {
     arguments.insert("trt".to_string(), "Traits example".to_string());
     arguments.insert("gen".to_string(), "Generics example".to_string());
     arguments.insert("crc".to_string(), "Type coercion example".to_string());
+    arguments.insert("res".to_string(), "Result return type example. Requires additional argument true or false to call panic".to_string());
 
 
     arguments
