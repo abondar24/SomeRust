@@ -16,3 +16,33 @@ pub fn mutable_var() {
     y += 2;
     println!("{}", y);
 }
+
+pub fn lp() {
+    let mut count = 0;
+    loop {
+        println!("{}", count);
+        count += 1;
+
+        if count == 7 {
+            println!("loop stop");
+
+            break;
+        }
+    }
+}
+
+
+pub fn expr() {
+    println!("expressions");
+
+    let x = 5u32;
+
+    let y: u32 = {
+        let x_2 = x * x;
+
+        //statement to be returned
+        x_2 * x_2
+    };
+
+    println!("{:?}", y)
+}
